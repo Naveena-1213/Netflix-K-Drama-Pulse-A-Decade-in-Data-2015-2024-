@@ -1,0 +1,104 @@
+import requests
+import pandas as pd
+import time
+from tqdm import tqdm
+
+#  Your TMDB API Key
+API_KEY = ""  # Replace with your API Key
+
+# Base URLs
+BASE_URL = "https://api.themoviedb.org/3"
+DISCOVER_URL = f"{BASE_URL}/discover/tv"
+DETAILS_URL = f"{BASE_URL}/tv"
+
+# HTTP Headers
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+# Retry-enabled request function
+def safe_get(url, params):
+    for i in range(3):  # Try 3 times
+        try:
+            response = requests.get(url, params=params, headers=headers, timeout=10)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                print(f" Error {response.status_code}: {url}")
+        except requests.exceptions.RequestException as e:
+            print(f" Retry {i+1}/3 failed: {e}")
+            time.sleep(2 * (i + 1))  # exponential backoff
+    return {}
+
+# Fetch detailed info about a show
+def get_tv_details(tv_id):
+    params = {
+        "api_key": API_KEY,
+        "language": "en-US"
+    }
+    return safe_get(f"{DETAILS_URL}/{tv_id}", params)
+
+# Extract Korean Dramas from Netflix
+def fetch_kdramas(start_year=2015, end_year=2019):
+    all_dramas = []
+
+    print(" Discovering Netflix Korean Dramas (2015–2019)...")
+    for year in range(start_year, end_year + 1):
+        for page in range(1, 4):  # You can increase pages if needed
+            params = {
+                "api_key": API_KEY,
+                "language": "en-US",
+                "sort_by": "popularity.desc",
+                "with_original_language": "ko",
+                "with_watch_providers": "8",  # Netflix
+                "watch_region": "KR",
+                "first_air_date_year": year,
+                "page": page
+            }
+
+            data = safe_get(DISCOVER_URL, params)
+            results = data.get("results", [])
+
+            for show in tqdm(results, desc=f"{year} - Page {page}", leave=False):
+                try:
+                    tv_id = show["id"]
+                    details = get_tv_details(tv_id)
+                    time.sleep(1)  # sleep between detail fetches
+
+                    title = details.get("name", "")
+                    release = details.get("first_air_date", "")
+                    episodes = details.get("number_of_episodes", "")
+                    runtime = details.get("episode_run_time", [0])
+                    rating = details.get("vote_average", "")
+                    summary = details.get("overview", "")
+                    genres = ", ".join([g['name'] for g in details.get("genres", [])])
+                    cast_url = f"{DETAILS_URL}/{tv_id}/credits"
+                    cast_data = safe_get(cast_url, {"api_key": API_KEY})
+                    cast = ", ".join([actor["name"] for actor in cast_data.get("cast", [])[:3]])
+
+                    all_dramas.append({
+                        "Name": title,
+                        "Year of Release": release[:4],
+                        "Original Network": "Netflix",
+                        "Number of Episodes": episodes,
+                        "Duration": runtime[0] if runtime else None,
+                        "Content Rating": "",  # TMDB API doesn’t provide it directly
+                        "Rating": rating,
+                        "Synopsis": summary,
+                        "Genre": genres,
+                        "Top 3 Cast": cast
+                    })
+                except Exception as e:
+                    print(f" Error processing show: {e}")
+                    continue
+
+            time.sleep(2)  # Pause between pages to avoid rate limit
+
+    return all_dramas
+
+# Run and Save
+if __name__ == "__main__":
+    kdramas = fetch_kdramas()
+    df = pd.DataFrame(kdramas)
+    df.to_csv("netflix_kdramas_2015_2019.csv", index=False)
+    print(f"\n Done! {len(df)} Netflix K-Dramas saved to 'netflix_kdramas_2020_2024.csv'")
