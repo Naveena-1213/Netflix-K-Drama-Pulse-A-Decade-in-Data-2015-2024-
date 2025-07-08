@@ -34,7 +34,7 @@ Key variables:
 
 The dataset also includes a dedicated issue log detailing null value treatment, duplicate handling, and transformation logic — ensuring full data governance and transparency.
 
-<img align="center" alt="zerotwo-pic" height="450" style="border-radius:60px;" src="https://github.com/Naveena-1213/pizza-sales-analysis/blob/main/Top%205%20Pizza%20in%20%25.png">
+<href src="https://github.com/Naveena-1213/Netflix-K-Drama-Pulse-A-Decade-in-Data-2015-2024-/blob/main/2015-2024.xlsx">
 
 Executive Summary
 Between 2015 and 2024, Netflix featured a total of 395 K-Dramas, with a clear growth trend in both production and international popularity.
