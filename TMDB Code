@@ -4,7 +4,7 @@ import time
 from tqdm import tqdm
 
 #  Your TMDB API Key
-API_KEY = ""  # Replace with your API Key
+API_KEY = "# Replace with your API Key"
 
 # Base URLs
 BASE_URL = "https://api.themoviedb.org/3"
