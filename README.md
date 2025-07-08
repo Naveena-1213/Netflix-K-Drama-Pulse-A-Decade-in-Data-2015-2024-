@@ -14,25 +14,26 @@ The dataset was systematically extracted from TMDB using Python API calls, follo
 
 Key variables:
 
- *`Name`: Title of the drama
+ * `Name`: Title of the drama
 
- *`Original Network`: Source network
+ * `Original Network`: Source network
 
- *`Year of Release`: Release year
+ * `Year of Release`: Release year
 
- *`Number of Episodes`: Total episodes
+ * `Number of Episodes`: Total episodes
 
- *`Duration`: Average episode duration (minutes)
+ * `Duration`: Average episode duration (minutes)
 
- *`Rating`: Audience/critic rating (scale of 1–10)
+ * `Rating`: Audience/critic rating (scale of 1–10)
 
- *`Genre`: Primary and secondary genre tags
+ * `Genre`: Primary and secondary genre tags
 
- *`Synopsis`: Series plot summary
+ * `Synopsis`: Series plot summary
 
- *`Actor Name`: Main cast
+ * `Actor Name`: Main cast
 
 The dataset also includes a dedicated issue log detailing null value treatment, duplicate handling, and transformation logic — ensuring full data governance and transparency.
+
 
 <img align="center" alt="zerotwo-pic" height="450" style="border-radius:60px;" src="https://github.com/Naveena-1213/Netflix-K-Drama-Pulse-A-Decade-in-Data-2015-2024-/blob/main/K%20drama%20excel%20sheet.png">
 
@@ -59,12 +60,14 @@ The data suggests a strategic expansion in both volume and genre diversity while
 
  * Consistent popularity of longer formats (average 24 episodes) suggests that audiences enjoy immersive, character-driven storytelling.
 
+ 
 <img align="center" alt="zerotwo-pic" height="450" style="border-radius:60px;" src="https://github.com/Naveena-1213/Netflix-K-Drama-Pulse-A-Decade-in-Data-2015-2024-/blob/main/Overview.png">
 
 ### Trend Dynamics
  * Year-over-Year Growth: The number of new K-Drama titles grew steadily, peaking at 58 releases in both 2023 and 2024 — a 5x increase from 2015 levels.
 
  * Rating Stability: Despite increased output, the average rating improved incrementally, signaling successful quality management.
+
 
 <img align="center" alt="zerotwo-pic" height="450" style="border-radius:60px;" src="https://github.com/Naveena-1213/Netflix-K-Drama-Pulse-A-Decade-in-Data-2015-2024-/blob/main/Trend.png">
 
@@ -73,12 +76,14 @@ The data suggests a strategic expansion in both volume and genre diversity while
 
  * Rating by Actor: Regression analysis suggests a mild positive correlation between actor recurrence and series ratings, hinting at perceived reliability among frequent stars.
 
+
 <img align="center" alt="zerotwo-pic" height="450" style="border-radius:60px;" src="https://github.com/Naveena-1213/Netflix-K-Drama-Pulse-A-Decade-in-Data-2015-2024-/blob/main/Actor.png">
 
 ### Genre Segmentation
  * Genre Distribution: Drama consistently dominated; however, hybrid genres like Sci-Fi & Fantasy and Mystery emerged post-2020, indicating diversification aligned with global consumption trends.
 
  * Genre vs. Year Analysis: Statistical cross-tabulation reveals a rising share of multi-genre productions, supporting audience segmentation strategies.
+
 
 <img align="center" alt="zerotwo-pic" height="450" style="border-radius:60px;" src="https://github.com/Naveena-1213/Netflix-K-Drama-Pulse-A-Decade-in-Data-2015-2024-/blob/main/Genre.png">
 
